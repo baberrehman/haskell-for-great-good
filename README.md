@@ -1,0 +1,1 @@
+# haskell-for-great-good
