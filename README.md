@@ -1,1 +1,1 @@
-# haskell-for-great-good
+# Learn You a Haskell for Great Good! 
