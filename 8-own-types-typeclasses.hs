@@ -1,4 +1,7 @@
 
+import qualified Data.Map as Map  
+
+
 data Bool = False | True
 
 data Point = Point Float Float deriving (Show)
@@ -60,3 +63,51 @@ vectMult :: (Num t) => Vector t -> t -> Vector t
 
 scalarMult :: (Num t) => Vector t -> Vector t -> t
 (Vector i j k) `scalarMult` (Vector l m n) = (i*l)+(j*m)+(k*n)
+
+data Person2 = Person2 {
+    firstName2 :: String,
+    lastName2  :: String,
+    age2       :: Int
+} deriving (Eq, Show, Read)
+
+
+mikeD = Person2 {firstName2 = "Michael", lastName2 = "Diamond", age2 = 43}  
+
+adRock = Person2 {firstName2 = "Adam", lastName2 = "Horovitz", age2 = 41}  
+
+mca = Person2 {firstName2 = "Adam", lastName2 = "Yauch", age2 = 44}  
+
+mikeD1 = Person2 {firstName2 = "Michael", lastName2 = "Diamond", age2 = 43}
+
+
+data Day = Monday | Tuesday | Wednesday | Thursday | Friday | Saturday | Sunday   
+           deriving (Eq, Ord, Show, Read, Bounded, Enum)
+
+
+-- Types
+
+  
+data LockerState = Taken | Free deriving (Show, Eq)  
+  
+type Code = String  
+  
+type LockerMap = Map.Map Int (LockerState, Code)
+
+lockerLookUp :: Int -> LockerMap -> Either String Code
+lockerLookUp lockerNumber map =
+    case Map.lookup lockerNumber map of
+        Nothing -> Left $ "Locker number " ++ show lockerNumber ++ " doesn't exist!"
+        Just (state, code) -> if state /= Taken
+                              then Right code
+                              else Left $ "Locker " ++ show lockerNumber ++ " is already taken!"
+
+lockers :: LockerMap  
+lockers = Map.fromList   
+    [(100,(Taken,"ZD39I"))  
+    ,(101,(Free,"JAH3I"))  
+    ,(103,(Free,"IQSA9"))  
+    ,(105,(Free,"QOTSA"))  
+    ,(109,(Taken,"893JJ"))  
+    ,(110,(Taken,"99292"))  
+    ]
+
